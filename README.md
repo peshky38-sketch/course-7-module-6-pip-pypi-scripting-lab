@@ -1,148 +1,152 @@
+# Module Lab: Automating Python Projects with Pip, PyPI & Scripting
 
-# Module Lab: Automating Python Projects with Pip, PyPi & Scripting
+## Description
+
+This project demonstrates how Python can be used to automate a small task using an external package installed with pip.
+
+The automation script uses the `requests` package to retrieve data from an external API and then writes structured information to a timestamped text file.
 
 ## Learning Goals
 
-- Automate Python tasks using command-line scripts.
-- Use pip to install and manage external packages.
-- Write modular Python scripts with clean entry points.
-- Track dependencies using a requirements.txt file.
-- Generate structured outputs using file I/O techniques.
+This project demonstrates how to:
 
-## Introduction
+- Automate tasks using Python scripts.
+- Install and use third-party packages with pip.
+- Use an external API with the `requests` package.
+- Write data to a local text file.
+- Create timestamped output files.
+- Track project dependencies using `requirements.txt`.
+- Use functions to organize Python code.
+- Use `if __name__ == "__main__"` to create a reusable script.
 
-In this lab, you will build a **Python automation tool** that uses pip-installed packages and scriptable logic to automate a real-world task. Your script will:
+## Project Features
 
-- Use pip to install third-party packages (e.g., `requests`).
-- Fetch or process external data.
-- Write structured output to a local file.
-- Track all dependencies in `requirements.txt` for reproducibility.
+The script:
 
-This lab emphasizes automation, scripting practices, and environment management using the standard Python ecosystem.
+1. Starts the automation process.
+2. Sends a request to the JSONPlaceholder API.
+3. Retrieves post information.
+4. Displays the post title.
+5. Creates a timestamped log file.
+6. Writes log information and API data into the file.
+7. Prints messages confirming the operation.
+8. Handles API request errors.
 
-## Setup Instructions
+## Project Structure
 
-### Fork and Clone the Repository
+```text
+module-lab-pip-pypi-scripting/
+├── generate_log.py
+├── requirements.txt
+├── README.md
+└── log_YYYYMMDD_HHMMSS.txt
+```
 
-1. Go to the provided GitHub repository link.
-2. Fork the repository to your GitHub account.
-3. Clone the forked repository to your local machine using:
+## Technologies Used
+
+- Python 3
+- pip
+- PyPI
+- requests
+- File I/O
+- JSONPlaceholder API
+- Git
+- GitHub
+
+## Installation
+
+Clone the repository and enter the project directory.
 
 ```bash
-git clone <repo-url>
+git clone <your-repository-url>
 cd module-lab-pip-pypi-scripting
 ```
 
-### Install Python and pip
-
-Ensure Python and pip are installed:
+Install the dependencies:
 
 ```bash
-python --version
-pip --version
+python3 -m pip install -r requirements.txt
 ```
 
-Optionally, create a virtual environment:
+## Running the Script
+
+Run the automation script from the command line:
 
 ```bash
-python -m venv venv
-source venv/bin/activate  # macOS/Linux
-venv\Scripts\activate   # Windows
+python3 generate_log.py
 ```
 
-Install any required dependencies:
+The script will fetch data from the API and create a timestamped text file.
+
+Example:
+
+```text
+Starting Python automation...
+Fetched Post Title: ...
+Log written to log_YYYYMMDD_HHMMSS.txt
+Automation completed successfully.
+```
+
+## Generated Output
+
+The generated text file contains log information and the title retrieved from the API.
+
+Example:
+
+```text
+User logged in
+User updated profile
+Report exported
+Fetched Post Title: ...
+```
+
+## Dependencies
+
+The project's external Python dependencies are recorded in:
+
+```text
+requirements.txt
+```
+
+The dependency file can be regenerated using:
 
 ```bash
-pip install -r requirements.txt
+python3 -m pip freeze > requirements.txt
 ```
 
-## Tasks
+## Error Handling
 
-### Task 1: Define the Problem
+The script uses `requests.RequestException` to handle problems that may occur while communicating with the external API.
 
-Your goal is to create a **Python script** that automates a small task:
+This allows the script to display an error message instead of stopping unexpectedly.
 
-- Uses one or more pip-installed packages (e.g., `requests`, `pandas`, `rich`)
-- Outputs data to a `.txt` or `.csv` file using File I/O
-- Logs or prints messages to confirm behavior
-- Is executable from the command line
-- Records dependencies in `requirements.txt`
+## Code Structure
 
----
+The script separates different responsibilities into functions:
 
-### Task 2: Determine the Design
+- `fetch_data()` retrieves information from the API.
+- `write_log()` creates and writes to the output file.
+- `main()` controls the automation process.
 
-You will implement a script with the following design principles:
-
-- Use `pip` to install packages
-- Import modules inside a Python script
-- Wrap logic in `if __name__ == "__main__"` to support reusability
-- Structure output files with filenames that include timestamps
-- Track dependencies using `pip freeze > requirements.txt`
-
----
-
-### Task 3: Develop and Run Your Script
-
-#### Step 1: Create a script called `generate_log.py`
+The script uses:
 
 ```python
-from datetime import datetime
-
-log_data = ["User logged in", "User updated profile", "Report exported"]
-filename = f"log_{datetime.now().strftime('%Y%m%d')}.txt"
-
-with open(filename, "w") as file:
-    for entry in log_data:
-        file.write(f"{entry}\n")
-
-print(f"Log written to {filename}")
-```
-
-#### Step 2: Add an API integration using `requests`
-
-```python
-import requests
-
-def fetch_data():
-    response = requests.get("https://jsonplaceholder.typicode.com/posts/1")
-    if response.status_code == 200:
-        return response.json()
-    return {}
-
 if __name__ == "__main__":
-    post = fetch_data()
-    print("Fetched Post Title:", post.get("title", "No title found"))
 ```
 
-#### Step 3: Track your dependencies
+so that the main automation process runs when the file is executed directly.
 
-After installing any packages with `pip install ...`, run:
+## Screenshot
 
-```bash
-pip freeze > requirements.txt
-```
+A screenshot showing the successful execution of the script is included below.
 
----
+![Successful Script Execution](screenshots/passed_tets.png)
+![Successful Second Script Execution](screenshots/passedtests_2.png)
 
-## Best Practices
+## Learning Outcome
 
-- Use clear function names (`fetch_data`, `write_log`) for clarity.
-- Always check file write success with print or logging statements.
-- Avoid hardcoding data—use variables and functions where appropriate.
-- Use virtual environments to isolate dependencies.
-- Wrap script logic in `if __name__ == "__main__"` for script reusability.
+This lab provided practical experience with Python automation, pip package management, external APIs, file handling, dependency tracking, and command-line scripting.
 
----
+## Author
 
-## Conclusion
-
-After completing this lab, you will:
-
-✅ Automate tasks with Python scripting  
-✅ Use external packages from PyPi with pip  
-✅ Track project dependencies with `requirements.txt`  
-✅ Generate structured output files from your script  
-✅ Structure projects for portability and collaboration
-
-These scripting and packaging skills are essential for building automation tools and working in modern Python development workflows.
+Rachel Kanyoro
