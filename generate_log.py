@@ -16,6 +16,7 @@ def generate_log(data):
 
     # Print a confirmation message.
     print(f"Log written to {filename}")
+    return filename
 
 
 if __name__ == "__main__":
